@@ -18,3 +18,8 @@ audience_pulse_mapping = {
 critic_agg_mapping = {
     # CriticAgg already has correct column names
 }
+
+box_office_metrics_mapping = {
+    'film_name': 'movie_title',
+    'year_of_release_domestic': 'release_year',
+}
