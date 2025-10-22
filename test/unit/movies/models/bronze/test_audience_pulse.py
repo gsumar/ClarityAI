@@ -35,4 +35,3 @@ class TestAudiencePulse:
         assert first_row['year'] == 2020
         assert first_row['audience_average_score'] == 8.5
         assert first_row['total_audience_ratings'] == 500000
-

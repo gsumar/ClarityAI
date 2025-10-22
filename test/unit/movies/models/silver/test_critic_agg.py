@@ -7,13 +7,15 @@ class TestCriticAgg:
     @pytest.fixture
     def bronze_df(self):
         """Create a sample bronze DataFrame with correct column names"""
-        return pd.DataFrame({
-            'movie_title': ['my_film_test_1', 'my_film_test_2'],
-            'release_year': [1998, 2005],
-            'critic_score_percentage': [12, 85],
-            'top_critic_score': [7.5, 8.9],
-            'total_critic_reviews_counted': [150, 320]
-        })
+        return pd.DataFrame(
+            {
+                'movie_title': ['my_film_test_1', 'my_film_test_2'],
+                'release_year': [1998, 2005],
+                'critic_score_percentage': [12, 85],
+                'top_critic_score': [7.5, 8.9],
+                'total_critic_reviews_counted': [150, 320],
+            }
+        )
 
     @pytest.fixture
     def critic_agg(self, bronze_df):
@@ -37,8 +39,11 @@ class TestCriticAgg:
 
     def test_data_types(self, critic_agg):
         """Test that data types are correctly applied"""
-        # Check string dtype (can be 'object' or 'string[python]')
-        assert str(critic_agg.df['movie_title'].dtype) in ['object', 'string', 'string[python]']
+        assert str(critic_agg.df['movie_title'].dtype) in [
+            'object',
+            'string',
+            'string[python]',
+        ]
         assert critic_agg.df['release_year'].dtype == 'int64'
         assert critic_agg.df['critic_score_percentage'].dtype == 'int64'
         assert critic_agg.df['top_critic_score'].dtype == 'float64'
@@ -61,4 +66,3 @@ class TestCriticAgg:
         assert isinstance(critic_agg.df, pd.DataFrame)
         assert critic_agg.df['release_year'].dtype == 'int64'
         assert critic_agg.df['top_critic_score'].dtype == 'float64'
-

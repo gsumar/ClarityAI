@@ -35,4 +35,3 @@ class TestCriticAgg:
         assert first_row['movie_title'] == 'my_film_test_1'
         assert first_row['release_year'] == 1998
         assert first_row['critic_score_percentage'] == 12
-

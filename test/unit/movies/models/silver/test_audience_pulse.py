@@ -7,13 +7,15 @@ class TestAudiencePulse:
     @pytest.fixture
     def bronze_df(self):
         """Create a sample bronze DataFrame with original column names"""
-        return pd.DataFrame({
-            'title': ['Test Movie A', 'Test Movie B'],
-            'year': [2020, 2021],
-            'audience_average_score': [8.5, 7.8],
-            'total_audience_ratings': [500000, 750000],
-            'domestic_box_office_gross': [150000000, 200000000]
-        })
+        return pd.DataFrame(
+            {
+                'title': ['Test Movie A', 'Test Movie B'],
+                'year': [2020, 2021],
+                'audience_average_score': [8.5, 7.8],
+                'total_audience_ratings': [500000, 750000],
+                'domestic_box_office_gross': [150000000, 200000000],
+            }
+        )
 
     @pytest.fixture
     def audience_pulse(self, bronze_df):
@@ -38,7 +40,11 @@ class TestAudiencePulse:
     def test_data_types(self, audience_pulse):
         """Test that data types are correctly applied"""
         # Check string dtype (can be 'object' or 'string[python]')
-        assert str(audience_pulse.df['movie_title'].dtype) in ['object', 'string', 'string[python]']
+        assert str(audience_pulse.df['movie_title'].dtype) in [
+            'object',
+            'string',
+            'string[python]',
+        ]
         assert audience_pulse.df['release_year'].dtype == 'int64'
         assert audience_pulse.df['critic_score_percentage'].dtype == 'int64'
         assert audience_pulse.df['top_critic_score'].dtype == 'float64'
@@ -61,4 +67,3 @@ class TestAudiencePulse:
         assert isinstance(audience_pulse.df, pd.DataFrame)
         assert 'movie_title' in audience_pulse.df.columns
         assert 'title' not in audience_pulse.df.columns
-
