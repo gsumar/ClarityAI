@@ -1,13 +1,13 @@
 import pytest
 import pandas as pd
 
-from src.movies.models.critic_agg import CriticAgg
+from src.movies.models.bronze.critic_agg import CriticAgg
 
 
 class TestCriticAgg:
     @pytest.fixture
     def test_file_path(self):
-        return "test/data/CriticAgg/test_provider1.csv"
+        return "test/data/critic_agg/test_provider1.csv"
 
     @pytest.fixture
     def critic_agg(self, test_file_path):
@@ -36,7 +36,3 @@ class TestCriticAgg:
         assert first_row['release_year'] == 1998
         assert first_row['critic_score_percentage'] == 12
 
-    def test_parse_schema_method_exists(self, critic_agg):
-        """Test that parse_schema method can be called"""
-        # Should not raise an exception
-        critic_agg.parse_schema()

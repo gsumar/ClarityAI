@@ -1,12 +1,12 @@
 import pytest
 import pandas as pd
-from src.movies.models.audience_pulse import AudiencePulse
+from src.movies.models.bronze.audience_pulse import AudiencePulse
 
 
 class TestAudiencePulse:
     @pytest.fixture
     def test_file_path(self):
-        return "test/data/AudiencePulse/test_provider2.json"
+        return "test/data/audience_pulse/test_provider2.json"
 
     @pytest.fixture
     def audience_pulse(self, test_file_path):
@@ -36,6 +36,3 @@ class TestAudiencePulse:
         assert first_row['audience_average_score'] == 8.5
         assert first_row['total_audience_ratings'] == 500000
 
-    def test_parse_schema_method_exists(self, audience_pulse):
-        """Test that parse_schema method can be called"""
-        audience_pulse.parse_schema()

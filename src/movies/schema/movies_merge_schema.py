@@ -12,7 +12,7 @@ audience_pulse_mapping = {
     'year': 'release_year',
     'audience_average_score': 'critic_score_percentage',
     'total_audience_ratings': 'top_critic_score',
-    'domestic_box_office_gross': 'total_critic_reviews_counted'
+    'domestic_box_office_gross': 'total_critic_reviews_counted',
 }
 
 critic_agg_mapping = {
