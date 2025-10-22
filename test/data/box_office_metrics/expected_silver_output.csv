@@ -1,0 +1,4 @@
+movie_title,release_year,total_box_office_gross_usd,production_budget_usd,marketing_spend_usd
+Test Film A,2020,700000000,150000000,80000000
+Test Film B,2021,500000000,120000000,60000000
+

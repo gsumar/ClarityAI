@@ -82,9 +82,18 @@ class TestBoxOfficeMetrics:
     def test_parse_schema_method(self, domestic_df, financials_df, international_df):
         """Test that parse_schema method works correctly"""
         box_office_metrics = BoxOfficeMetrics(domestic_df, financials_df, international_df)
-        
+
         # Verify the schema was parsed during initialization
         assert isinstance(box_office_metrics.df, pd.DataFrame)
         assert 'movie_title' in box_office_metrics.df.columns
         assert 'total_box_office_gross_usd' in box_office_metrics.df.columns
+
+    def test_output_matches_expected_csv(self, box_office_metrics):
+        """Test that the output matches the expected CSV file"""
+        expected_df = pd.read_csv('test/data/box_office_metrics/expected_silver_output.csv')
+
+        result_df = box_office_metrics.df.sort_values('movie_title')
+        expected_df = expected_df.sort_values('movie_title')
+
+        pd.testing.assert_frame_equal(result_df, expected_df)
 
