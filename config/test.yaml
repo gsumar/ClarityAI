@@ -1,5 +1,5 @@
-# Input data sources configuration
-bronze:
+# Test data sources configuration
+source:
   audience_pulse: src/movies/data/audience_pulse/20251022_provider2.json
   critic_agg: src/movies/data/critic_agg/20251022_provider1.csv
   box_office:
@@ -9,7 +9,6 @@ bronze:
 
 # Output directories
 output:
-  bronze: target/bronze
-  silver: target/silver
-  gold: target/gold
-
+  bronze: target/test/bronze
+  silver: target/test/silver
+  gold: target/test/gold
