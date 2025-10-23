@@ -1,7 +1,6 @@
 import pandas as pd
 
 from src.movies.models.bronze.data_provider import DataProvider
-from src.movies.schema.movies_merge_schema import schema, audience_pulse_mapping
 
 
 class AudiencePulse(DataProvider):
