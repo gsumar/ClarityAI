@@ -37,16 +37,16 @@ def save_dataframe_to_csv(df, output_path):
 
 def process_bronze_layer(config):
     """Process bronze layer - load raw data from source files"""
-    bronze_audience_pulse = BronzeAudiencePulse(config['bronze']['audience_pulse'])
+    bronze_audience_pulse = BronzeAudiencePulse(config['source']['audience_pulse'])
     save_dataframe_to_csv(bronze_audience_pulse.df, f"{config['output']['bronze']}/audience_pulse.csv")
 
-    bronze_critic_agg = BronzeCriticAgg(config['bronze']['critic_agg'])
+    bronze_critic_agg = BronzeCriticAgg(config['source']['critic_agg'])
     save_dataframe_to_csv(bronze_critic_agg.df, f"{config['output']['bronze']}/critic_agg.csv")
 
     bronze_box_office = BronzeBoxOfficeMetrics(
-        config['bronze']['box_office']['domestic'],
-        config['bronze']['box_office']['financials'],
-        config['bronze']['box_office']['international']
+        config['source']['box_office']['domestic'],
+        config['source']['box_office']['financials'],
+        config['source']['box_office']['international']
     )
     save_dataframe_to_csv(bronze_box_office.domestic_df, f"{config['output']['bronze']}/box_office_domestic.csv")
     save_dataframe_to_csv(bronze_box_office.financials_df, f"{config['output']['bronze']}/box_office_financials.csv")
