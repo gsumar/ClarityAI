@@ -1,0 +1,4 @@
+movie_title,audience_release_year,audience_score_percentage,audience_average_score,total_audience_ratings,critic_release_year,critic_score_percentage,top_critic_score,total_critic_reviews_counted,release_year,total_box_office_gross_usd,production_budget_usd,marketing_spend_usd
+Inception,2010,9,1500000.0,292576195,2010,87,8.1,450,2010.0,828276195.0,160000000.0,100000000.0
+Parasite,2019,9,800000.0,53369749,2019,99,9.5,475,,,,
+The Dark Knight,2008,9,2200000.0,533345358,2008,94,8.6,350,2008.0,1003045358.0,185000000.0,150000000.0

@@ -1,0 +1,15 @@
+# Input data sources configuration
+bronze:
+  audience_pulse: src/movies/data/audience_pulse/20251022_provider2.json
+  critic_agg: src/movies/data/critic_agg/20251022_provider1.csv
+  box_office:
+    domestic: src/movies/data/box_office_metrics/20251022_provider3_domestic.csv
+    financials: src/movies/data/box_office_metrics/20251022_provider3_financials.csv
+    international: src/movies/data/box_office_metrics/20251022_provider3_international.csv
+
+# Output directories
+output:
+  bronze: target/bronze
+  silver: target/silver
+  gold: target/gold
+
