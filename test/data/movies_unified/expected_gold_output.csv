@@ -1,0 +1,5 @@
+movie_title,audience_release_year,audience_score_percentage,audience_average_score,total_audience_ratings,critic_release_year,critic_score_percentage,top_critic_score,total_critic_reviews_counted,release_year,total_box_office_gross_usd,production_budget_usd,marketing_spend_usd
+Movie A,2020,85,8.5,150,2020,88,8.8,160,2020,500000000,150000000,80000000
+Movie B,2021,72,7.2,200,2021,75,7.5,210,,,
+Movie C,2022,90,9.0,180,,,,,2022,750000000,200000000,100000000
+Movie D,,,,,2023,82,8.2,140,2023,300000000,100000000,50000000
