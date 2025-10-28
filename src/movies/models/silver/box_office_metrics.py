@@ -1,16 +1,16 @@
 import pandas as pd
 
 from src.movies.models.silver.data_provider import DataProvider
-from src.movies.schema.movies_merge_schema import box_office_metrics_mapping
 
 
 class BoxOfficeMetrics(DataProvider):
-    def __init__(self, domestic_df, financials_df, international_df):
+    def __init__(self, domestic_df, financials_df, international_df, version='v1'):
+        super().__init__(domestic_df)
         self.domestic_df = domestic_df
         self.financials_df = financials_df
         self.international_df = international_df
+        self.version = version
         self.df = self.parse_schema()
-        super().__init__(self.df)
 
     def parse_schema(self):
         """
@@ -40,8 +40,6 @@ class BoxOfficeMetrics(DataProvider):
             how='inner'
         )
 
-        # Select and order columns before renaming
-        # Use year_of_release_domestic (could also use _international, they should be the same)
         merged_df = merged_df[[
             'film_name',
             'year_of_release_domestic',
@@ -50,5 +48,4 @@ class BoxOfficeMetrics(DataProvider):
             'marketing_spend_usd'
         ]]
 
-        # Rename columns once at the end
-        return merged_df.rename(columns=box_office_metrics_mapping)
+        return self.registry.transform_dataframe('silver/box_office', self.version, merged_df)

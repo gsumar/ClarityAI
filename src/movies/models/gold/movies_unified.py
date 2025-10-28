@@ -1,14 +1,15 @@
 import pandas as pd
 
 from src.movies.models.gold.analytics_reports import AnalyticsReport
-from src.movies.schema.gold_schema import gold_column_mapping
 
 
 class MoviesUnified(AnalyticsReport):
-    def __init__(self, audience_pulse, critic_agg, box_office_metrics):
+    def __init__(self, audience_pulse, critic_agg, box_office_metrics, version='v1'):
+        super().__init__()
         self.audience_pulse = audience_pulse
         self.critic_agg = critic_agg
         self.box_office_metrics = box_office_metrics
+        self.version = version
         self.df = self.build_report()
 
     def build_report(self) -> pd.DataFrame:
@@ -34,6 +35,9 @@ class MoviesUnified(AnalyticsReport):
             how='outer'
         )
 
-        unified_df = unified_df.rename(columns=gold_column_mapping)
+        # Use Schema Registry to apply gold layer column mapping
+        schema = self.registry.get_schema('gold/movies_unified', self.version)
+        if schema:
+            unified_df = schema.apply_mapping(unified_df)
 
         return unified_df.sort_values('movie_title').reset_index(drop=True)
