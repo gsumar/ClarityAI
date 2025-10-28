@@ -28,12 +28,14 @@ This project implements the **Medallion Architecture** (Bronze → Silver → Go
 ```
 
 ### 🥉 Bronze Layer
-**Purpose**: Raw data ingestion
+**Purpose**: Raw data ingestion with schema validation
 
 - Loads data exactly as it arrives from source systems
-- No transformations or cleaning
-- Preserves original data structure and values
+- Validates incoming data against expected schema
+- Detects schema version automatically
+- No transformations or cleaning (preserves raw data)
 - Acts as a historical archive of raw data
+- **Uses Schema Registry** to detect and handle schema changes from providers
 
 **Models**:
 - `BronzeAudiencePulse`: Audience ratings from Provider 2 (JSON format)
@@ -48,6 +50,7 @@ This project implements the **Medallion Architecture** (Bronze → Silver → Go
 - Applies consistent data types
 - Validates data quality
 - Merges related datasets (e.g., box office domestic + international + financials)
+- **Uses Schema Registry** to apply column mappings and transformations
 
 **Models**:
 - `SilverAudiencePulse`: Standardized audience ratings
@@ -61,6 +64,7 @@ This project implements the **Medallion Architecture** (Bronze → Silver → Go
 - Optimized for business intelligence and analytics
 - Ready for consumption by data analysts and business users
 - Implements business logic and KPIs
+- **Uses Schema Registry** for final column standardization
 
 **Models**:
 - `MoviesUnified`: Unified view of all movie data (audience + critic + box office)
@@ -81,7 +85,11 @@ poetry install
 The pipeline accepts a YAML configuration file as a command-line argument:
 
 ```bash
-python src/movies/main.py input.yaml
+# Run with production config
+python -m src.movies.main config/prod.yaml
+
+# Or run with test config
+python -m src.movies.main config/test.yaml
 ```
 
 ### Configuration File Format
@@ -193,6 +201,62 @@ source:
 Add processing logic for the new source in the bronze and silver layer functions.
 
 That's it! The modular design makes it easy to integrate new data sources without affecting existing pipelines.
+
+## 📋 Schema Registry
+
+The pipeline uses a **Schema Registry** pattern for centralized schema management with version control.
+
+### Handling Schema Changes
+
+**Example:** Provider changes column name from `"title"` to `"movie_name"` in their data files.
+
+#### Current State (v1)
+
+**Bronze Schema** (`src/movies/schema/versions/bronze/audience_pulse/v1.json`):
+```json
+{
+  "version": "v1",
+  "description": "Bronze layer schema for Provider 2 - Audience Pulse raw data",
+  "schema": {
+    "title": "string",
+    "year": "string",
+    "audience_average_score": "float64",
+    "total_audience_ratings": "int64",
+    "domestic_box_office_gross": "int64"
+  },
+  "mapping": {},
+  "transformations": {}
+}
+```
+
+#### Provider Changes Schema
+
+Create new version to handle the change:
+
+**Bronze Schema v2** (`src/movies/schema/versions/bronze/audience_pulse/v2.json`):
+```json
+{
+  "version": "v2",
+  "description": "Updated Bronze schema - title renamed to movie_name",
+  "schema": {
+    "movie_name": "string",
+    "year": "string",
+    "audience_average_score": "float64",
+    "total_audience_ratings": "int64",
+    "domestic_box_office_gross": "int64"
+  },
+  "mapping": {},
+  "transformations": {}
+}
+```
+
+#### Result
+
+No code changes needed! The pipeline auto-detects schema versions:
+- Old files with `title` column → automatically use `v1` schema
+- New files with `movie_name` column → automatically use `v2` schema
+- Bronze layer validates and stores both versions
+- Downstream layers remain unchanged
 
 ## 🧪 Testing
 
