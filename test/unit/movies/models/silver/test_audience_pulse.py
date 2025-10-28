@@ -39,24 +39,19 @@ class TestAudiencePulse:
 
     def test_data_types(self, audience_pulse):
         """Test that data types are correctly applied"""
-        # Check string dtype (can be 'object' or 'string[python]')
-        assert str(audience_pulse.df['movie_title'].dtype) in [
-            'object',
-            'string',
-            'string[python]',
-        ]
-        assert audience_pulse.df['release_year'].dtype == 'int64'
-        assert audience_pulse.df['critic_score_percentage'].dtype == 'int64'
-        assert audience_pulse.df['top_critic_score'].dtype == 'float64'
-        assert audience_pulse.df['total_critic_reviews_counted'].dtype == 'int64'
+        assert str(audience_pulse.df['movie_title'].dtype) == 'object'
+        assert str(audience_pulse.df['release_year'].dtype) == 'Int64'
+        assert str(audience_pulse.df['critic_score_percentage'].dtype) == 'float64'
+        assert str(audience_pulse.df['top_critic_score'].dtype) == 'int64'
+        assert str(audience_pulse.df['total_critic_reviews_counted'].dtype) == 'int64'
 
     def test_data_content_preserved(self, audience_pulse):
         """Test that data values are preserved after transformation"""
         first_row = audience_pulse.df.iloc[0]
         assert first_row['movie_title'] == 'Test Movie A'
         assert first_row['release_year'] == 2020
-        assert first_row['critic_score_percentage'] == 8
-        assert first_row['top_critic_score'] == 500000.0
+        assert first_row['critic_score_percentage'] == 8.5
+        assert first_row['top_critic_score'] == 500000
         assert first_row['total_critic_reviews_counted'] == 150000000
 
     def test_parse_schema_method(self, bronze_df):

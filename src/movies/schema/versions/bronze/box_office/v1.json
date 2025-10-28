@@ -1,0 +1,12 @@
+{
+  "version": "v1",
+  "description": "Bronze layer schema for Provider 3 - Box Office raw data (domestic file)",
+  "schema": {
+    "film_name": "string",
+    "year_of_release": "int64",
+    "box_office_gross_usd": "int64"
+  },
+  "mapping": {},
+  "transformations": {}
+}
+

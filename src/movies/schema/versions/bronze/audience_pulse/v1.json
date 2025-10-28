@@ -1,0 +1,14 @@
+{
+  "version": "v1",
+  "description": "Bronze layer schema for Provider 2 - Audience Pulse raw data",
+  "schema": {
+    "title": "string",
+    "year": "string",
+    "audience_average_score": "float64",
+    "total_audience_ratings": "int64",
+    "domestic_box_office_gross": "int64"
+  },
+  "mapping": {},
+  "transformations": {}
+}
+
