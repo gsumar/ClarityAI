@@ -1,6 +1,7 @@
 from pathlib import Path
 import yaml
 import argparse
+import logging
 
 from src.movies.models.bronze.audience_pulse import AudiencePulse as BronzeAudiencePulse
 from src.movies.models.bronze.critic_agg import CriticAgg as BronzeCriticAgg
@@ -11,6 +12,13 @@ from src.movies.models.silver.critic_agg import CriticAgg as SilverCriticAgg
 from src.movies.models.silver.box_office_metrics import BoxOfficeMetrics as SilverBoxOfficeMetrics
 
 from src.movies.models.gold.movies_unified import MoviesUnified
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
 
 
 def load_config(config_path):
@@ -33,6 +41,7 @@ def create_target_directories(config):
 def save_dataframe_to_csv(df, output_path):
     """Save a DataFrame to CSV file"""
     df.to_csv(output_path, index=False)
+    logging.info(f"✓ Saved file: {output_path} ({len(df)} rows)")
 
 
 def process_bronze_layer(config):
