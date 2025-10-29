@@ -43,8 +43,11 @@ class SchemaRegistry:
     - Column mapping and transformations
     """
 
-    def __init__(self, schema_dir: str = "src/movies/schema/versions"):
-        self.schema_dir = Path(schema_dir)
+    def __init__(self, schema_dir: str = None):
+        if schema_dir is None:
+            # Default to versions directory relative to this file
+            schema_dir = Path(__file__).parent / "versions"
+        self.schema_dir = Path(schema_dir).resolve()
         self.schemas: Dict[str, Dict[str, SchemaVersion]] = {}
         self._load_schemas()
 
@@ -154,7 +157,8 @@ class SchemaRegistry:
         """
         schema = self.get_schema(provider, version)
         if not schema:
-            raise ValueError(f"Schema not found: {provider}/{version}")
+            available = list(self.schemas.keys())
+            raise ValueError(f"Schema not found: {provider}/{version}. Available providers: {available}")
 
         # Apply transformations first (on source columns)
         df = schema.apply_transformations(df)
