@@ -1,0 +1,20 @@
+{
+  "version": "v1",
+  "description": "Initial schema for Provider 3 - Box Office Metrics data (after merge)",
+  "schema": {
+    "film_name": "string",
+    "year_of_release_domestic": "int64",
+    "total_box_office_gross_usd": "int64",
+    "production_budget_usd": "int64",
+    "marketing_spend_usd": "int64"
+  },
+  "mapping": {
+    "film_name": "movie_title",
+    "year_of_release_domestic": "release_year",
+    "total_box_office_gross_usd": "total_box_office_gross_usd",
+    "production_budget_usd": "production_budget_usd",
+    "marketing_spend_usd": "marketing_spend_usd"
+  },
+  "transformations": {}
+}
+

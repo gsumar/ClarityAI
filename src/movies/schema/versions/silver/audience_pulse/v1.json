@@ -1,0 +1,22 @@
+{
+  "version": "v1",
+  "description": "Initial schema for Provider 2 - Audience Pulse data (Bronze to Silver)",
+  "schema": {
+    "title": "string",
+    "year": "string",
+    "audience_average_score": "float64",
+    "total_audience_ratings": "int64",
+    "domestic_box_office_gross": "int64"
+  },
+  "mapping": {
+    "title": "movie_title",
+    "year": "release_year",
+    "audience_average_score": "critic_score_percentage",
+    "total_audience_ratings": "top_critic_score",
+    "domestic_box_office_gross": "total_critic_reviews_counted"
+  },
+  "transformations": {
+    "year": "int"
+  }
+}
+

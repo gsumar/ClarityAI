@@ -1,0 +1,20 @@
+{
+  "version": "v1",
+  "description": "Initial schema for Provider 1 - Critic Aggregation data",
+  "schema": {
+    "movie_title": "string",
+    "release_year": "int64",
+    "critic_score_percentage": "int64",
+    "top_critic_score": "float64",
+    "total_critic_reviews_counted": "int64"
+  },
+  "mapping": {
+    "movie_title": "movie_title",
+    "release_year": "release_year",
+    "critic_score_percentage": "critic_score_percentage",
+    "top_critic_score": "top_critic_score",
+    "total_critic_reviews_counted": "total_critic_reviews_counted"
+  },
+  "transformations": {}
+}
+
